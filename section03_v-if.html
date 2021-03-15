@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>超Vue.js 2 入門 完全パック - Vueでアプリを作りたい方必見！ (Vue Router, Vuex含む)</title>
+  <style>
+  </style>
+</head>
+<body>
+  <h1>「条件付きレンダリング」と「リストレンダリング」</h1>
+  <div id="app">
+    
+    <button @click="ok = !ok">toggle</button>
+
+    <!-- v-if -->
+    <p v-if="ok">OK</p>
+    <p v-else-if="maybeOk">maybeOk</p>
+    <p v-else>Not OK</p>
+
+    <!--templateを使うとまとめて操作できる-->
+    <template v-if="ok">
+      <p>Hello1</p>
+      <p>Hello2</p>
+      <p>Hello3</p>
+    </template>
+
+    <!--v-show-->
+    <p v-show="ok">Show</p> <!--display:none;になる-->
+
+  </div>
+  <script src="vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        ok: true,
+        maybeOk: true
+      }
+    })
+  </script>
+</body>
+</html>

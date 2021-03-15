@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>超Vue.js 2 入門 完全パック - Vueでアプリを作りたい方必見！ (Vue Router, Vuex含む)</title>
+  <style>
+    .red {
+      color: red;
+    }
+    .bg-blue {
+      background-color: blue;
+    }
+  </style>
+</head>
+<body>
+  <h1>これがVue.jsの基礎、テンプレート構文だ</h1>
+  <div id="app">
+
+    <!-- v-model -->
+    <input type="text" v-model="message">
+
+    <!-- data -->
+    <p>{{ message }}</p>
+    
+    <!-- v-on -->
+    <button v-on:click="reverseMessage">反転</button>
+
+    <!-- v-bind -->
+    <a :href="testUrl">Test</a>
+    <a :[attribute]="url">Google</a>
+    <a v-bind="twitterObject">Twitter</a>
+
+    <!-- v-on, computed, methods -->
+    <p>{{ number }}回</p>
+    <p>{{ lessThanThree }}</p>
+    <button v-on:click="countUp">カウントアップ</button>
+    <button v-on:click="countUpWith(3)">カウントアップ</button>
+    <button @click="countUp">カウントアップ</button>
+    <button @[event_name]="countUp">カウントアップ</button>
+
+    <!-- v-on, event -->
+    <p v-on:mousemove="changeMousePosition">マウスを載せてください</p>
+    <p v-on:mousemove="changeMousePositionDivide($event, 3)">マウスを載せてください
+      <span v-on:mousemove.stop>反応しないでください</span>
+    </p>
+    <p>X:{{x}}, Y:{{y}}</p>
+
+    <!-- v-on, event -->
+    <a v-on:click.prevent href="https://google.com">Googleに飛ばない</a>
+    <input type="text" v-on:keyup.space.enter="myAlert">
+
+    <!-- class -->
+    <h1 :class="{red: isActive, 'bg-blue': !isActive}">Hello</h1>
+    <h1 :class="classObject">Hello</h1>
+    <button @click="isActive = !isActive">切り替え</button>
+
+    <!-- style -->
+    <h1 :class="[color, bg]">Hello</h1>
+    <h1 :style="{color: textColor, 'background-color': bgColor}">Hello</h1>
+    <h1 :style="styleObject">Hello</h1>
+    <h1 :style="[styleObject, baseStyles]">Hello</h1>
+  </div>
+  <script src="vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        message: "Hello",
+
+        testUrl: "https://example.com",
+        attribute: 'href',
+        url: "http://google.com",
+        twitterObject: {
+          href: "http://twitter.com",
+          id: 123
+        },
+
+        number: 0,
+        x: 0,
+        y: 0,
+
+        event_name: 'click',
+        
+        isActive: true,
+        color: 'red',
+        bg: 'bg-blue',
+        textColor: 'red',
+        bgColor: 'blue',
+        styleObject: {
+          color: 'red', 'background-color': 'blue'
+        },
+        baseStyles: {
+          fontSize: '60px'
+        }
+      },
+      computed: {
+        lessThanThree: function(){
+          return this.number > 3 ? '3より上' : '3以下';
+        },
+        classObject: function(){
+          return {red: this.isActive, 'bg-blue': !this.isActive}
+        }
+      },
+      watch: {
+        number: function(){
+          const vm = this;
+          setTimeout(function(){
+            vm.number = 0;
+          }, 3000)
+        }
+      },
+      methods: {
+        reverseMessage: function() {
+          this.message = this.message.split('').reverse().join('')
+        },
+        countUp: function(){
+          this.number += 1;
+        },
+        countUpWith: function(times){
+          this.number += 1 * times;
+        },
+        changeMousePosition: function(event){
+          console.log(event);
+          this.x = event.clientX;
+          this.y = event.clientY;
+        },
+        changeMousePositionDivide: function(event, divideNumber){
+          this.x = event.clientX / divideNumber;
+          this.y = event.clientY / divideNumber;
+        },
+        myAlert(){
+          alert('Alert');
+        }
+      }
+    })
+  </script>
+</body>
+</html>

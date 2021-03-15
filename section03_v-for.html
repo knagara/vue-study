@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>超Vue.js 2 入門 完全パック - Vueでアプリを作りたい方必見！ (Vue Router, Vuex含む)</title>
+  <style>
+  </style>
+</head>
+<body>
+  <h1>「条件付きレンダリング」と「リストレンダリング」</h1>
+  <div id="app">
+    <!--v-for-->
+    <ul>
+      <li v-for="fruit in fruits">{{ fruit }}</li>
+    </ul>
+    <!--インデックス-->
+    <ul>
+      <li v-for="(fruit, index) in fruits">{{ index }}{{ fruit }}</li>
+    </ul>
+    <!--オブジェクト-->
+    <ul>
+      <li v-for="value in object">{{ value }}</li>
+    </ul>
+    <ul>
+      <li v-for="(value, key, index) in object">{{ index }}{{ key }}{{ value }}</li>
+    </ul>
+    <!--templateタグ-->
+    <ul>
+      <template v-for="fruit in fruits">
+        <li>{{ fruit }}</li>
+        <hr>
+      </template>
+    </ul>
+    <!--整数値-->
+    <ul>
+      <li v-for="n in 10">{{ n }}</li>
+    </ul>
+    <!--key属性-->
+    <div v-for="fruit in fruits" :key="fruit">
+      <li>{{ fruit }}</li>
+      <input type="text">
+    </div>
+    <button @click="remove">先頭を削除</button>
+  </div>
+  <script src="vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        fruits: ['りんご', 'バナナ', 'ぶどう'],
+        object: {
+          firstName: 'たろう',
+          lastName: 'たなか',
+          age: 21
+        }
+      },
+      methods: {
+        remove: function(){
+          this.fruits.shift();
+        }
+      }
+    })
+  </script>
+</body>
+</html>

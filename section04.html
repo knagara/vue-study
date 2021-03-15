@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>超Vue.js 2 入門 完全パック - Vueでアプリを作りたい方必見！ (Vue Router, Vuex含む)</title>
+  <style>
+  </style>
+</head>
+<body>
+  <h1>Vueインスタンスとその内部構造はこうなっている</h1>
+  <div id="app">
+    {{ message }}
+  </div>
+  <div id="app2">
+    {{ message }}
+    <button @click="changeMessage1">1を変更</button>
+  </div>
+  <script src="vue.js"></script>
+  <script>
+    var vm1 = new Vue({
+      el: '#app',
+      data: {
+        message: "1"
+      }
+    })
+
+    vm1.message = "書き換えられました"
+
+    var vm2 = new Vue({
+      el: "#app2",
+      data: {
+        message: "2"
+      },
+      methods: {
+        changeMessage1: function () {
+          vm1.message = "2によって書き換えられました"
+        }
+      }
+    })
+  </script>
+</body>
+</html>
